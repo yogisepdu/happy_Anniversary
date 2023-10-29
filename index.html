@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wedding Card</title>
+    <style>
+      body {
+        background: url("background.jpg") no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        font-family: "Arial", sans-serif;
+      }
+
+      .card {
+        width: 400px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.7);
+        margin: 50px auto;
+        border-radius: 20px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        color: #000;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .couple-pics {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 40%;
+      }
+
+      .couple-pic,
+      .couple-pic2 {
+        width: 48%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .message {
+        text-align: center;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #e76f51;
+        animation: colorChange 5s ease infinite;
+      }
+
+      @keyframes colorChange {
+        0% {
+          color: #e76f51;
+        }
+        50% {
+          color: #5e60ce;
+        }
+        100% {
+          color: #e76f51;
+        }
+      }
+
+      .amount {
+        text-align: center;
+        font-size: 24px;
+        padding: 20px;
+        font-weight: bold;
+        color: #e76f51;
+      }
+
+      .gift-message {
+        text-align: center;
+        font-size: 20px;
+        padding: 20px;
+        font-style: italic;
+        color: #5e60ce;
+        flex-grow: 1;
+        overflow: auto;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .countdown {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        color: #e76f51;
+        margin: 20px;
+        animation: pulse 1s ease infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="couple-pics">
+        <img class="couple-pic" src="01.jpeg" alt="Reyang dan Yosep" />
+        <img class "couple-pic2" src="02.jpeg" alt="Reyang dan Yosep" />
+      </div>
+      <div class="message">HAPPY ANNIVERSARY 5 MONTH.</div>
+      <div class="amount">Reyang dan Yosep</div>
+      <div class="gift-message">
+        <p>
+          Semoga di hari yang special ini, dirimu makin cinta ke aku, makin
+          perhatian, makin tambah sayangnya.. LOPPYUUU Reyang
+        </p>
+      </div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+
+    <script>
+      // Hitung mundur hingga jam 22:00 WIB
+      const countdownElement = document.getElementById("countdown");
+      const targetTime = new Date();
+      targetTime.setHours(22, 0, 0, 0);
+
+      function updateCountdown() {
+        const currentTime = new Date();
+        const timeDifference = targetTime - currentTime;
+        if (timeDifference > 0) {
+          const hours = Math.floor(timeDifference / 3600000);
+          const minutes = Math.floor((timeDifference % 3600000) / 60000);
+          const seconds = Math.floor((timeDifference % 60000) / 1000);
+
+          countdownElement.textContent = `${hours} jam ${minutes} menit ${seconds} detik`;
+        } else {
+          // Tampilkan pesan setelah waktunya habis
+          countdownElement.textContent = "Happy Anniversary sayangg!";
+          // Hentikan animasi pulse
+          countdownElement.style.animation = "none";
+          // Menghilangkan elemen countdown setelah beberapa detik
+          setTimeout(() => {
+            countdownElement.style.display = "none";
+          }, 5000); // Menghilangkan setelah 5 detik (5000 ms)
+        }
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
